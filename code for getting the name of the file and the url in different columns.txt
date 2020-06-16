@@ -1,0 +1,19 @@
+function myFunction() {
+var ss=SpreadsheetApp.getActiveSpreadsheet();
+var s=ss.getActiveSheet();
+var c=s.getActiveCell();
+var fldr=DriveApp.getFolderById("REPLACE_[ID]_HERE");
+var files=fldr.getFiles();
+var names=[],f,str; 
+
+while (files.hasNext()) {
+f=files.next();
+str='=hyperlink("' + f.getUrl() + '","' + f.getName() + '")';
+names.push([str]);
+}
+
+while (files.hasNext()) {
+f=files.next();
+names.push([f.getUrl(), f.getName()]);
+}
+s.getRange(c.getRow(),c.getColumn(),names.length, 2).setValues(names); }
